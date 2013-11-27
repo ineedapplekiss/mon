@@ -12,18 +12,12 @@ return array(
 	// application components
 	'components'=>array(
 		'db'=>array(
-			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
-		),
-		// uncomment the following to use a MySQL database
-		/*
-		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=testdrive',
+			'connectionString' => 'mysql:host=10.207.0.240;dbname=mon.shang.com',
 			'emulatePrepare' => true,
-			'username' => 'root',
-			'password' => '',
+			'username' => 'szl',
+			'password' => 'szl',
 			'charset' => 'utf8',
 		),
-		*/
 		'log'=>array(
 			'class'=>'CLogRouter',
 			'routes'=>array(
