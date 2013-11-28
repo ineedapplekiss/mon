@@ -24,6 +24,12 @@ class TestController extends Controller
 	            return;
 	        }
 	    }
+	    $this->run("show");
 	    $this->render('/user/test',array('model'=>$model));
+	}
+	
+	public function actionShow()
+	{
+		echo 123;
 	}
 }
