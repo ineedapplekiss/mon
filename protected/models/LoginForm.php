@@ -9,6 +9,7 @@ class LoginForm extends CFormModel
 {
 	public $username;
 	public $password;
+	public $password2;
 	public $rememberMe;
 
 	private $_identity;
@@ -24,9 +25,10 @@ class LoginForm extends CFormModel
 			// username and password are required
 			array('username, password', 'required'),
 			// rememberMe needs to be a boolean
-			array('rememberMe', 'boolean'),
+			array('rememberMe', 'boolean', 'on'=>'login'),
 			// password needs to be authenticated
-			array('password', 'authenticate'),
+			array('password', 'authenticate', 'on'=>'login'),
+			array('password2', 'compare', 'compareAttribute'=>'password', 'on'=>'reg', 'message'=>'输入的密码不一致'),
 		);
 	}
 
@@ -37,6 +39,9 @@ class LoginForm extends CFormModel
 	{
 		return array(
 			'rememberMe'=>'Remember me next time',
+			'password' => '密码',
+			'password2' => '重复密码',
+			'email' => 'Email',
 		);
 	}
 

@@ -29,6 +29,7 @@ class SiteController extends Controller
 	{
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
+		$res = User::model()->findByPk("22");
 		$this->render('index');
 	}
 
@@ -77,7 +78,7 @@ class SiteController extends Controller
 	 */
 	public function actionLogin()
 	{
-		$model=new LoginForm;
+		$model=new LoginForm('login');
 
 		// if it is ajax validation request
 		if(isset($_POST['ajax']) && $_POST['ajax']==='login-form')
@@ -107,10 +108,30 @@ class SiteController extends Controller
 		$this->redirect(Yii::app()->homeUrl);
 	}
 	
+	
 	public function actionReg()
 	{
-		$this->layout='//layouts/column2';
-		$model=new LoginForm;
-		$this->render('login',array('model'=>$model));
+		$model=new LoginForm('reg');
+		
+		// if it is ajax validation request
+		if(isset($_POST['ajax']) && $_POST['ajax']==='reg-form')
+		{
+			echo CActiveForm::validate($model);
+			Yii::app()->end();
+		}
+
+		// collect user input data
+		if(isset($_POST['LoginForm']))
+		{
+			$model->attributes=$_POST['LoginForm'];
+			// validate user input and redirect to the previous page if valid
+			if($model->validate())
+			{
+				
+				$this->redirect(Yii::app()->user->returnUrl);
+			}
+		}
+		// display the login form
+		$this->render('reg',array('model'=>$model));
 	}
 }
