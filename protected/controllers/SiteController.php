@@ -32,6 +32,11 @@ class SiteController extends Controller
 		$res = User::model()->findByPk("22");
 		$this->render('index');
 	}
+	
+	public function actionTest() {
+		$res = Yii::app()->user->checkAccess("runtest");
+		CVarDumper::dump($res);
+	}
 
 	/**
 	 * This is the action to handle external exceptions.
@@ -127,8 +132,16 @@ class SiteController extends Controller
 			// validate user input and redirect to the previous page if valid
 			if($model->validate())
 			{
-				
-				$this->redirect(Yii::app()->user->returnUrl);
+				$user = new User();
+				$user->attributes = $_POST["LoginForm"];
+				$user->email = $_POST["LoginForm"]["username"]."@shang.com";
+				$res = $user->save();
+				if($res) {
+					$this->redirect(Yii::app()->user->returnUrl);
+				}else {
+					var_dump($user->errors);
+					Yii::app()->end();
+				}
 			}
 		}
 		// display the login form

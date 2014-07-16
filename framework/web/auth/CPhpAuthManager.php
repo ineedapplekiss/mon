@@ -48,6 +48,7 @@ class CPhpAuthManager extends CAuthManager
 	public function init()
 	{
 		parent::init();
+		CVarDumper::dump($this->authFile);
 		if($this->authFile===null)
 			$this->authFile=Yii::getPathOfAlias('application.data.auth').'.php';
 		$this->load();
